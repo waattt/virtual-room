@@ -9,6 +9,9 @@
     "socket.io-client": "*",
     "express": "*"
   },
+   "scripts": {
+      "start": "node index.js"
+     },
   "private": true,
   "license": "MIT"
 }
