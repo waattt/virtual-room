@@ -7,7 +7,7 @@
     "noble": "*",
     "socket.io": "*",
     "socket.io-client": "*",
-    "express": "*",
+    "express": "*"
   },
   "private": true,
   "license": "MIT"
