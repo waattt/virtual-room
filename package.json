@@ -1,30 +1,11 @@
 {
   "name": "virtual-room",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Indoor Bluetooth location for virtual reality",
   "author": "Timon van Dreumel <timon@studiowhy.nl>",
-  "contributors": [{
-  "name": "Studio.Y",
-  "email": "info@studiowhy.nl"
-}],
-  "scripts": {
-     "start": "node index.js",
-   },
-  "main": "index.js",
-  "repository": {
-  "type": "git",
-  "url": "https://github.com/waattt/virtual-room/"
-},
-  "bugs": {
-  "url": "https://github.com/waattt/issues"
-},
-"engines": {
-    "node": ">=0.8"
-  },
   "dependencies": {
     "noble": "*"
   },
   "private": true,
-  
   "license": "MIT"
 }
