@@ -4,7 +4,10 @@
   "description": "Indoor Bluetooth location for virtual reality",
   "author": "Timon van Dreumel <timon@studiowhy.nl>",
   "dependencies": {
-    "noble": "*"
+    "noble": "*",
+    "socket.io": "*",
+    "socket.io-client": "*",
+    "express": "*",
   },
   "private": true,
   "license": "MIT"

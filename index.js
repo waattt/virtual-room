@@ -1,31 +1,24 @@
 var noble = require('noble');
 
-var inRange = [];
+//replace localhost with your server's IP;
+var socket = require('socket.io-client')('http://192.168.0.136/scanner');
 
-noble.on('discover', function(peripheral) {
-  if (peripheral.rssi < RSSI_THRESHOLD) {
-    // ignore
-    return;
-  }
+//replace with your hardware address
+var addressToTrack = 'd4f5137787f5'; 
 
-  var id = peripheral.id;
-  var entered = !inRange[id];
-
-  if (entered) {
-    inRange[id] = {
-      peripheral: peripheral
-    };
-
-    console.log('"' + peripheral.advertisement.localName + '" entered (RSSI ' + peripheral.rssi + ') ' + new Date());
-  }
-
-  inRange[id].lastSeen = Date.now();
+socket.on('connect', function(){  
+    console.log('connected to server');
 });
 
+noble.on('discover', function(peripheral){
+    if(peripheral.uuid == addressToTrack){
+        socket.emit('deviceData', {mac: peripheral.uuid, rssi:peripheral.rssi});    
+    }
+});
 noble.on('stateChange', function(state) {
-  if (state === 'poweredOn') {
-    noble.startScanning([], true);
-  } else {
-    noble.stopScanning();
-  }
+    if (state === 'poweredOn') {
+        noble.startScanning([], true);
+    } else {
+        noble.stopScanning();
+    }
 });
