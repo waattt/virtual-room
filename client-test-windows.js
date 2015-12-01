@@ -6,4 +6,5 @@ var addressToTrack = 'd4f5137787f5';
 
 socket.on('connect', function(){  
     console.log('connected to server');
+
 });
