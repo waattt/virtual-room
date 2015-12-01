@@ -3,6 +3,7 @@ var io = require('socket.io')(app);
 var fs = require('fs');
 
 app.listen(80);
+console.log('starting server on :80');
 
 function handler (req, res) {
     fs.readFile(__dirname + '/index.html',
@@ -17,16 +18,12 @@ function handler (req, res) {
     });
 }
 
-io.on('connection', function (socket) {
+var scanner = io.of('/scanner');
+scanner.on('connection', function(socket){
     console.log('Scanner Connected');
-
-    socket.on('message', function(msg) {
-        //recived message from scanner
-        //do some processing here
-    });
     
-    socket.on('deviceData', function(msg) {
-        console.log(msg);
+    socket.on('deviceData', function(data) {
+        console.log(data.rssi);
     });
 
     socket.on('disconnect', function() {
