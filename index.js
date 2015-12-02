@@ -3,7 +3,7 @@ var noble = require('noble');
 
 // IMPORTANT
 // Change server ip!
-var server = 'http://192.168.0.136:80';
+var server = 'http://192.168.0.136/scanner';
 var socket = require('socket.io-client')(server);
 
 console.log('Connecting to ' + server + '....');
@@ -18,6 +18,9 @@ var beacon1 = 'd4f5137787f5',
 socket.on('connect', function(){  
     console.log('connected to server');    
 });
+socket.on('disconnect', function(){  
+    console.log('disconnected from server');    
+});
 
 noble.on('discover', function(peripheral){
     if(peripheral.uuid == beacon1 ||
@@ -25,7 +28,6 @@ noble.on('discover', function(peripheral){
        peripheral.uuid == beacon3 ||
        peripheral.uuid == beacon4 ||
        peripheral.uuid == beacon5 ){
-        console.log('specific device found' + peripheral.rssi);
         socket.emit('deviceData', {mac: peripheral.uuid, rssi:peripheral.rssi});    
     }
 });
