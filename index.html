@@ -1,7 +1,53 @@
 <html>
     <head>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     </head>
     <body>
-        hoi
+      <script>
+        $(document).ready(function() {
+
+         var socket = io('/client');
+
+         var scale = d3.scale.linear()
+              .domain([0, 20])
+              .range([0, 1000]);
+
+        var base = d3.select("#blok");
+        var chart = base.append("canvas")
+          .attr("width", 1000)
+          .attr("height", 300);
+
+        var context = chart.node().getContext("2d");
+        var data = [13];
+
+        data.forEach(function(d, i) {
+          context.beginPath();
+          context.rect(scale(d), 150, 10, 10);
+          context.fillStyle="red";
+          context.fill();
+          context.closePath();
+        });
+
+          socket.on('connected', function(msg) {
+              console.log('connected to server');
+
+          });
+
+          socket.on('message', function(msg) {
+              var yVal = scale(msg);
+
+              base.selectAll('rect').remove();
+              context.beginPath();
+              context.rect(scale(yVal), 150, 10, 10);
+              context.fillStyle="rgba(0,0,0,.3)";
+              context.fill();
+              context.closePath();
+          });
+
+        });
+      </script>
+      <div id="blok"></div>
     </body>
 </html>
